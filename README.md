@@ -1,3 +1,23 @@
+> ## Fork Notice
+>
+> This repository is a fork of [aalto-ui/aim](https://github.com/aalto-ui/aim) (`aim2` branch, up to [`89cee07`](https://github.com/aalto-ui/aim/commit/89cee07)). The upstream Docker build of the backend no longer works, because several of the external sources it downloads from have been deprecated or removed. This fork fixes the build by vendoring those dependencies. No metric, backend, or frontend source code has been changed.
+>
+> **Differences from upstream**
+>
+> | Area | Upstream | This fork |
+> | --- | --- | --- |
+> | Google Chrome | Installed from the `dl.google.com/linux/chrome/deb` apt repository (via `apt-key add`), latest stable version | Installed from the vendored [`google-chrome-stable_114.0.5735.90-1_amd64.deb`](./backend/vendor/deb/) |
+> | ChromeDriver | Downloaded from `chromedriver.storage.googleapis.com` (`LATEST_RELEASE`) | Unzipped from the vendored [`chromedriver_linux64.zip`](./backend/vendor/chromedriver/) |
+> | PaddlePaddle | Resolved from the package index through `requirements.txt` | Installed from the vendored [`paddlepaddle-2.4.1-cp37-cp37m-linux_x86_64.whl`](./backend/vendor/whl/) before `requirements.txt` |
+> | Debian apt sources | `deb.debian.org` and `security.debian.org` (buster has been removed from these mirrors, so `apt-get update` fails) | Repointed to `archive.debian.org` |
+> | Git LFS | Tracks `*.h5` and `*.hdf5` | Also tracks `google-chrome-*.deb` and `paddlepaddle-*.whl` |
+>
+> **Changed files:** [`backend/Dockerfile`](./backend/Dockerfile), [`.gitattributes`](./.gitattributes), and the new [`backend/vendor/`](./backend/vendor/) folder.
+>
+> **Note:** The Chrome package and the PaddlePaddle wheel are stored with Git LFS. Run `git lfs install` and `git lfs pull` before building the Docker image, otherwise the build fails on the LFS pointer files.
+>
+> **Before using this branch, review the commits created by [@hyeonseungkang](https://github.com/hyeonseungkang) on this branch.**
+
 ![interfacemetrics.aalto.fi](./frontend/src/assets/workflow.png)
 
 # Aalto Interface Metrics (AIM)
