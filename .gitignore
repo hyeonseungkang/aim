@@ -227,6 +227,7 @@ venv.bak/
 # IDEs
 .idea/
 .vscode/
+.serena/
 
 # AIM
 backend/webdrivers/
